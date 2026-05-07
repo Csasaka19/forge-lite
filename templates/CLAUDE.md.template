@@ -1,0 +1,40 @@
+# [Project Name]
+
+[One sentence: what this app is.]
+
+## Tech Stack
+- React 18 + TypeScript (strict)
+- Vite
+- Tailwind CSS v4
+- shadcn/ui
+- React Router v6
+
+## Commands
+- `npm run dev` — dev server (port 5173)
+- `npm run build` — production build
+- `npm run lint` — typecheck
+- `npm run test` — Vitest
+
+## Key Files
+- `docs/product-spec.md` — what we're building (READ THIS FIRST)
+- `docs/design-brief.md` — visual direction
+- `src/data/types.ts` — all TypeScript types
+- `src/data/mock.ts` — all mock data
+
+## Architecture Rules
+- All routes defined in App.tsx only.
+- All types in data/types.ts.
+- All mock data in data/mock.ts.
+- Pages in pages/. Shared components in components/shared/. UI primitives in components/ui/.
+- Every page handles: default, loading, empty, and error states.
+
+## Current Status
+[Update this as work progresses]
+- [ ] Project scaffolded
+- [ ] Layout and navigation
+- [ ] Page 1: ...
+- [ ] Page 2: ...
+- [ ] ...
+- [ ] Mobile responsive
+- [ ] Dark mode
+- [ ] Deploy
