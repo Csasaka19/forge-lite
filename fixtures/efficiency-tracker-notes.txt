@@ -1,0 +1,110 @@
+efficiency tracker app idea — rough notes
+==========================================
+
+ok so the basic thing is: at the start of every task someone on the team
+estimates how long it'll take. then when they finish they log the actual
+time. we want to see the gap between estimated and actual, per person,
+per week, per project.
+
+why: half the team consistently under-estimates and the other half pads
+estimates so much that we can't plan anything. nobody is doing this
+maliciously, they just don't have feedback on their own track record.
+giving them a dashboard with their own numbers should fix it for most
+people without management having to nag.
+
+who uses it
+- everyone on the team logs their own tasks (devs, designers, pm, copy)
+- team leads / managers see rollups for their direct reports
+- one or two senior people / founders see everything across the company
+
+basic flow per task:
+1. user creates a task — title, project, estimate in hours (can be 0.25
+   minimum)
+2. they work on it, can pause/resume a timer if they want, or just
+   manually enter actual hours when done
+3. they mark it done — actual hours required field
+4. system calculates variance = actual - estimated and a ratio
+5. dashboard updates
+
+dashboards
+- personal dashboard: my last 30 days, my average variance, am I trending
+  better or worse, weekly chart
+- manager dashboard: each direct report as a row with their numbers,
+  click into anyone to see their personal view
+- top-level: company-wide variance, broken down by project and by team
+
+weekly summary email goes out friday afternoon:
+  - your variance this week vs last week
+  - your worst-estimated task and your best-estimated task
+  - 1 tip if your variance is bad (like "estimates over 8h are usually
+    wrong, break them down")
+
+things to be careful about
+- people might forget to log. need a gentle nudge, not a guilt trip.
+  maybe slack reminder at 4pm if nothing logged today.
+- estimates change as the task is in progress. should we let people
+  update the estimate? probably yes but track the original separately
+  so the variance is honest.
+- vacation / sick days shouldn't count against you. need an "out of
+  office" toggle.
+- tasks that span multiple days — log hours per day or just total?
+  i think per day, otherwise the timer ux is weird.
+- privacy: people get nervous when their time is tracked. only their
+  direct manager + themselves see their data. nobody else by default.
+
+look and feel
+- green and white. clean. minimal. think notion or linear, not jira.
+- definitely NOT corporate / enterprise feeling. this is a tool people
+  should want to open.
+- numbers and charts are the main content so typography needs to be
+  great for tabular data. probably inter for everything plus a mono
+  font for numbers.
+- desktop / laptop first. people use this at their desk. mobile is
+  nice-to-have, like quick "log my hours" but not the full dashboards.
+
+things we're NOT building yet
+- billing / invoicing / client time tracking — this is internal only
+- integrations with jira/asana/linear (later, maybe)
+- approval workflows (manager approves timesheet) — too corporate
+- payroll integration — no
+- mobile native app — pwa is enough
+
+stuff i'm still not sure about
+- should the timer auto-pause when you're idle? feels creepy
+- do we let people see each other's variance or only their own +
+  manager's view? leaning private but team might want a friendly
+  leaderboard option
+- weekly summary on friday afternoon or monday morning? probably friday
+  so people can think about it over the weekend, but maybe monday
+  morning catches people fresh
+- 4-hour or 8-hour cap on a single task entry?
+
+tech bits (i think)
+- web app, react probably, ssr not required
+- postgres for the data
+- background job for the friday email
+- need decent charts — maybe recharts or visx
+- auth — probably just google sso since everyone has a work google
+
+key data we're storing
+- users (name, email, role, manager_id, team_id)
+- tasks (title, project, estimate_hours, actual_hours, status, owner,
+  started_at, completed_at, original_estimate)
+- time_entries (task_id, user_id, hours, date, note) — for per-day logging
+- projects (name, owner, archived)
+- teams (name, lead_user_id)
+- weekly_summaries (user_id, week_starting, variance, sent_at) — so we
+  don't double-send
+
+pages off the top of my head
+- landing / marketing page (probably just internal so minimal)
+- login (google sso)
+- my dashboard (default after login)
+- log a task / quick add
+- task list (filter by project, status, date)
+- task detail / edit
+- team dashboard (managers only)
+- company dashboard (founders only)
+- settings (notification prefs, OOO toggle, timezone)
+- profile (name, photo, role)
+- 404

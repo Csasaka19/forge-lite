@@ -1,0 +1,791 @@
+{
+  "schema_version": "0.1",
+  "source": "mcp",
+  "board": {
+    "id": "2pRPGAwBQ3kraM1PCVjNMz",
+    "url": "https://whimsical.com/trp15/payment-flow-2pRPGAwBQ3kraM1PCVjNMz",
+    "title": "Payment Flow",
+    "slug": "payment-flow",
+    "extracted_at": "2026-05-08T09:34:37.685Z"
+  },
+  "mindmaps": [
+    {
+      "id": "JSoevE",
+      "title": "Page: Tenant Delivery Hub",
+      "root_node_id": "root-JSoevE",
+      "nodes": [
+        {
+          "id": "root-JSoevE",
+          "parent_id": null,
+          "order": 0,
+          "color": null,
+          "color_raw": null,
+          "prefix": null,
+          "body": "Page: Tenant Delivery Hub",
+          "text": "Page: Tenant Delivery Hub"
+        },
+        {
+          "id": "efNXXX",
+          "parent_id": "root-JSoevE",
+          "order": 0,
+          "color": "purple",
+          "color_raw": "#9B59B6",
+          "prefix": "UI",
+          "body": "Text: Welcome to your Delivery Hub | Manage all your package deliveries, schedule drop-offs, and coordinate with building management for seamless delivery service.",
+          "text": "UI: Text: Welcome to your Delivery Hub | Manage all your package deliveries, schedule drop-offs, and coordinate with building management for seamless delivery service."
+        },
+        {
+          "id": "3dgpfW",
+          "parent_id": "efNXXX",
+          "order": 0,
+          "color": "purple",
+          "color_raw": "#9B59B6",
+          "prefix": "System Update",
+          "body": "Update: User | {last_login} = Current Date/Time",
+          "text": "System Update: Update: User | {last_login} = Current Date/Time"
+        },
+        {
+          "id": "Vb8doq",
+          "parent_id": "root-JSoevE",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Tabs: Delivery Management",
+          "text": "UI: Tabs: Delivery Management"
+        },
+        {
+          "id": "LSyktb",
+          "parent_id": "Vb8doq",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Incoming Deliveries Tab:",
+          "text": "UI: Incoming Deliveries Tab:"
+        },
+        {
+          "id": "KF2oZU",
+          "parent_id": "LSyktb",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Logic",
+          "body": "If pending deliveries exist | {Delivery{status} = Pending, {recipient} = Current User}: COUNT > 0",
+          "text": "Logic: If pending deliveries exist | {Delivery{status} = Pending, {recipient} = Current User}: COUNT > 0"
+        },
+        {
+          "id": "NRQtp3",
+          "parent_id": "KF2oZU",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Repeating Group: Pending Deliveries | Data Source: {Delivery{status} = Pending, {recipient} = Current User}",
+          "text": "UI: Repeating Group: Pending Deliveries | Data Source: {Delivery{status} = Pending, {recipient} = Current User}"
+        },
+        {
+          "id": "P9BaAa",
+          "parent_id": "NRQtp3",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Group: Card Sections",
+          "text": "UI: Group: Card Sections"
+        },
+        {
+          "id": "G1VEbs",
+          "parent_id": "P9BaAa",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: {delivery{carrier}} - {delivery{tracking_number}}",
+          "text": "UI: Text: {delivery{carrier}} - {delivery{tracking_number}}"
+        },
+        {
+          "id": "PXZ3XM",
+          "parent_id": "P9BaAa",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Expected: {delivery{estimated_arrival}}",
+          "text": "UI: Text: Expected: {delivery{estimated_arrival}}"
+        },
+        {
+          "id": "5REdtB",
+          "parent_id": "P9BaAa",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Delivery Address: {property{address}} - Unit {delivery{unit_number}}",
+          "text": "UI: Text: Delivery Address: {property{address}} - Unit {delivery{unit_number}}"
+        },
+        {
+          "id": "KkcrQT",
+          "parent_id": "P9BaAa",
+          "order": 3,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Schedule Drop-off Time | Action: Click",
+          "text": "UI: Button: Schedule Drop-off Time | Action: Click"
+        },
+        {
+          "id": "A2YHPy",
+          "parent_id": "KkcrQT",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Opens scheduling popup | UI: Popup: Delivery Scheduler",
+          "text": "Result: Opens scheduling popup | UI: Popup: Delivery Scheduler"
+        },
+        {
+          "id": "Cz9S6E",
+          "parent_id": "A2YHPy",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Q",
+          "body": "Select your preferred delivery window",
+          "text": "Q: Select your preferred delivery window"
+        },
+        {
+          "id": "Vh9Hk9",
+          "parent_id": "Cz9S6E",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "E",
+          "body": "Radio - Single Pick",
+          "text": "E: Radio - Single Pick"
+        },
+        {
+          "id": "6z12qZ",
+          "parent_id": "Vh9Hk9",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Morning (9AM - 12PM)",
+          "text": "Option: Morning (9AM - 12PM)"
+        },
+        {
+          "id": "L2CWds",
+          "parent_id": "6z12qZ",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Confirm Selection | Action: Click",
+          "text": "UI: Button: Confirm Selection | Action: Click"
+        },
+        {
+          "id": "PZvxSg",
+          "parent_id": "L2CWds",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Morning, {status} = Scheduled",
+          "text": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Morning, {status} = Scheduled"
+        },
+        {
+          "id": "4boMZA",
+          "parent_id": "Vh9Hk9",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Afternoon (12PM - 5PM)",
+          "text": "Option: Afternoon (12PM - 5PM)"
+        },
+        {
+          "id": "7pQYe7",
+          "parent_id": "4boMZA",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Confirm Selection | Action: Click",
+          "text": "UI: Button: Confirm Selection | Action: Click"
+        },
+        {
+          "id": "NV1JdK",
+          "parent_id": "7pQYe7",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Afternoon, {status} = Scheduled",
+          "text": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Afternoon, {status} = Scheduled"
+        },
+        {
+          "id": "FEqjrX",
+          "parent_id": "Vh9Hk9",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Evening (5PM - 8PM)",
+          "text": "Option: Evening (5PM - 8PM)"
+        },
+        {
+          "id": "8wm3zR",
+          "parent_id": "FEqjrX",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Confirm Selection | Action: Click",
+          "text": "UI: Button: Confirm Selection | Action: Click"
+        },
+        {
+          "id": "GPLidi",
+          "parent_id": "8wm3zR",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Evening, {status} = Scheduled",
+          "text": "Result: Delivery window scheduled | System Update: Update: Delivery | {preferred_window} = Evening, {status} = Scheduled"
+        },
+        {
+          "id": "Tfjj2z",
+          "parent_id": "A2YHPy",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Special delivery instructions (optional)",
+          "text": "UI: Text: Special delivery instructions (optional)"
+        },
+        {
+          "id": "RajDxm",
+          "parent_id": "Tfjj2z",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Multi-Input Field | \"Leave at door, ring doorbell twice, etc.\"",
+          "text": "UI: Multi-Input Field | \"Leave at door, ring doorbell twice, etc.\""
+        },
+        {
+          "id": "P1JRcq",
+          "parent_id": "RajDxm",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "System Update",
+          "body": "Update: Delivery | {special_instructions} = Input Value",
+          "text": "System Update: Update: Delivery | {special_instructions} = Input Value"
+        },
+        {
+          "id": "Q135Lc",
+          "parent_id": "P9BaAa",
+          "order": 4,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Track Package | Action: Click",
+          "text": "UI: Button: Track Package | Action: Click"
+        },
+        {
+          "id": "UfL4BY",
+          "parent_id": "Q135Lc",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Opens tracking details | UI: Popup: Package Tracking",
+          "text": "Result: Opens tracking details | UI: Popup: Package Tracking"
+        },
+        {
+          "id": "8SR4hu",
+          "parent_id": "UfL4BY",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Real-time tracking for {delivery{tracking_number}}",
+          "text": "UI: Text: Real-time tracking for {delivery{tracking_number}}"
+        },
+        {
+          "id": "E8EXtZ",
+          "parent_id": "UfL4BY",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Current Status: {delivery{current_status}}",
+          "text": "UI: Text: Current Status: {delivery{current_status}}"
+        },
+        {
+          "id": "2Q3wMC",
+          "parent_id": "UfL4BY",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Last Update: {delivery{last_update_time}}",
+          "text": "UI: Text: Last Update: {delivery{last_update_time}}"
+        },
+        {
+          "id": "QmHcMb",
+          "parent_id": "UfL4BY",
+          "order": 3,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "System Update",
+          "body": "Update: Delivery | {tracking_viewed} = true, {last_tracked} = Current Date/Time",
+          "text": "System Update: Update: Delivery | {tracking_viewed} = true, {last_tracked} = Current Date/Time"
+        },
+        {
+          "id": "XxFyrG",
+          "parent_id": "LSyktb",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Logic",
+          "body": "If no pending deliveries exist | {Delivery{status} = Pending, {recipient} = Current User}: COUNT = 0",
+          "text": "Logic: If no pending deliveries exist | {Delivery{status} = Pending, {recipient} = Current User}: COUNT = 0"
+        },
+        {
+          "id": "MKhAYY",
+          "parent_id": "XxFyrG",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: No incoming deliveries at this time. | When you have packages on the way, they'll appear here for easy tracking and scheduling.",
+          "text": "UI: Text: No incoming deliveries at this time. | When you have packages on the way, they'll appear here for easy tracking and scheduling."
+        },
+        {
+          "id": "XaXXmg",
+          "parent_id": "MKhAYY",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "System Update",
+          "body": "Update: User | {last_delivery_check} = Current Date/Time",
+          "text": "System Update: Update: User | {last_delivery_check} = Current Date/Time"
+        },
+        {
+          "id": "Y3hKyj",
+          "parent_id": "Vb8doq",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Delivery History Tab:",
+          "text": "UI: Delivery History Tab:"
+        },
+        {
+          "id": "4q1uaj",
+          "parent_id": "Y3hKyj",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Logic",
+          "body": "If completed deliveries exist | {Delivery{status} = Delivered, {recipient} = Current User}: COUNT > 0",
+          "text": "Logic: If completed deliveries exist | {Delivery{status} = Delivered, {recipient} = Current User}: COUNT > 0"
+        },
+        {
+          "id": "NrZQhi",
+          "parent_id": "4q1uaj",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Repeating Group: Completed Deliveries | Data Source: {Delivery{status} = Delivered, {recipient} = Current User}",
+          "text": "UI: Repeating Group: Completed Deliveries | Data Source: {Delivery{status} = Delivered, {recipient} = Current User}"
+        },
+        {
+          "id": "MEiZcD",
+          "parent_id": "NrZQhi",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Group: Card Sections",
+          "text": "UI: Group: Card Sections"
+        },
+        {
+          "id": "8BG95x",
+          "parent_id": "MEiZcD",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: {delivery{carrier}} - Delivered {delivery{delivered_date}}",
+          "text": "UI: Text: {delivery{carrier}} - Delivered {delivery{delivered_date}}"
+        },
+        {
+          "id": "NEpgTj",
+          "parent_id": "MEiZcD",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Tracking: {delivery{tracking_number}}",
+          "text": "UI: Text: Tracking: {delivery{tracking_number}}"
+        },
+        {
+          "id": "AASh5g",
+          "parent_id": "MEiZcD",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Rate Delivery Experience | Action: Click",
+          "text": "UI: Button: Rate Delivery Experience | Action: Click"
+        },
+        {
+          "id": "6meWZD",
+          "parent_id": "AASh5g",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Opens rating popup | UI: Popup: Delivery Rating",
+          "text": "Result: Opens rating popup | UI: Popup: Delivery Rating"
+        },
+        {
+          "id": "4AvD9M",
+          "parent_id": "6meWZD",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Q",
+          "body": "How was your delivery experience?",
+          "text": "Q: How was your delivery experience?"
+        },
+        {
+          "id": "J27Jjr",
+          "parent_id": "4AvD9M",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "E",
+          "body": "Slider",
+          "text": "E: Slider"
+        },
+        {
+          "id": "UtgVhg",
+          "parent_id": "J27Jjr",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Rate from 1-5 stars",
+          "text": "UI: Text: Rate from 1-5 stars"
+        },
+        {
+          "id": "MKWaAX",
+          "parent_id": "J27Jjr",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Multi-Input Field | \"Optional feedback about your delivery experience\"",
+          "text": "UI: Multi-Input Field | \"Optional feedback about your delivery experience\""
+        },
+        {
+          "id": "PTpwVu",
+          "parent_id": "MKWaAX",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Submit Rating | Action: Click",
+          "text": "UI: Button: Submit Rating | Action: Click"
+        },
+        {
+          "id": "WXYEEg",
+          "parent_id": "PTpwVu",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Rating saved | System Update: Create: DeliveryReview | {delivery} = Current Delivery, {rating} = Input Value, {comment} = Input Text, {reviewer} = Current User",
+          "text": "Result: Rating saved | System Update: Create: DeliveryReview | {delivery} = Current Delivery, {rating} = Input Value, {comment} = Input Text, {reviewer} = Current User"
+        },
+        {
+          "id": "6PWZDr",
+          "parent_id": "Y3hKyj",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Logic",
+          "body": "If no completed deliveries exist | {Delivery{status} = Delivered, {recipient} = Current User}: COUNT = 0",
+          "text": "Logic: If no completed deliveries exist | {Delivery{status} = Delivered, {recipient} = Current User}: COUNT = 0"
+        },
+        {
+          "id": "EuNkuX",
+          "parent_id": "6PWZDr",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Your delivery history will appear here once you start receiving packages through our system.",
+          "text": "UI: Text: Your delivery history will appear here once you start receiving packages through our system."
+        },
+        {
+          "id": "Vnbqnb",
+          "parent_id": "EuNkuX",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "System Update",
+          "body": "Update: User | {history_viewed} = Current Date/Time",
+          "text": "System Update: Update: User | {history_viewed} = Current Date/Time"
+        },
+        {
+          "id": "HtZUAU",
+          "parent_id": "Vb8doq",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Building Services Tab:",
+          "text": "UI: Building Services Tab:"
+        },
+        {
+          "id": "UnKfTK",
+          "parent_id": "HtZUAU",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Coordinate with building management and concierge services for package handling and delivery logistics.",
+          "text": "UI: Text: Coordinate with building management and concierge services for package handling and delivery logistics."
+        },
+        {
+          "id": "7AdFYD",
+          "parent_id": "UnKfTK",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "System Update",
+          "body": "Update: User | {services_tab_viewed} = Current Date/Time",
+          "text": "System Update: Update: User | {services_tab_viewed} = Current Date/Time"
+        },
+        {
+          "id": "CSvFdG",
+          "parent_id": "HtZUAU",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Contact Concierge | Action: Click",
+          "text": "UI: Button: Contact Concierge | Action: Click"
+        },
+        {
+          "id": "5Rzaw8",
+          "parent_id": "CSvFdG",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Opens communication popup | UI: Popup: Concierge Contact",
+          "text": "Result: Opens communication popup | UI: Popup: Concierge Contact"
+        },
+        {
+          "id": "RsHyN3",
+          "parent_id": "5Rzaw8",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Reach out to building staff for delivery assistance, package holds, or special arrangements.",
+          "text": "UI: Text: Reach out to building staff for delivery assistance, package holds, or special arrangements."
+        },
+        {
+          "id": "4s8Fc2",
+          "parent_id": "5Rzaw8",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Multi-Input Field | \"Describe your delivery request or question\"",
+          "text": "UI: Multi-Input Field | \"Describe your delivery request or question\""
+        },
+        {
+          "id": "NCTS3n",
+          "parent_id": "4s8Fc2",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Send Message | Action: Click",
+          "text": "UI: Button: Send Message | Action: Click"
+        },
+        {
+          "id": "7A65JU",
+          "parent_id": "NCTS3n",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Message sent to building management | System Update: Create: ServiceRequest | {requester} = Current User, {request_type} = Delivery Support, {message} = Input Text, {status} = Pending",
+          "text": "Result: Message sent to building management | System Update: Create: ServiceRequest | {requester} = Current User, {request_type} = Delivery Support, {message} = Input Text, {status} = Pending"
+        },
+        {
+          "id": "Drwm3d",
+          "parent_id": "NCTS3n",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Notification",
+          "body": "Building Management - New delivery support request from {user{first_name}} {user{last_name}} in Unit {user{unit_number}}",
+          "text": "Notification: Building Management - New delivery support request from {user{first_name}} {user{last_name}} in Unit {user{unit_number}}"
+        },
+        {
+          "id": "KCrRwG",
+          "parent_id": "HtZUAU",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Package Hold Request | Action: Click",
+          "text": "UI: Button: Package Hold Request | Action: Click"
+        },
+        {
+          "id": "L6iTu8",
+          "parent_id": "KCrRwG",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Opens hold request form | UI: Popup: Package Hold Setup",
+          "text": "Result: Opens hold request form | UI: Popup: Package Hold Setup"
+        },
+        {
+          "id": "J86q1K",
+          "parent_id": "L6iTu8",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Q",
+          "body": "When do you need package holding service?",
+          "text": "Q: When do you need package holding service?"
+        },
+        {
+          "id": "Ao8z8A",
+          "parent_id": "J86q1K",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "E",
+          "body": "Dropdown",
+          "text": "E: Dropdown"
+        },
+        {
+          "id": "QmziVh",
+          "parent_id": "Ao8z8A",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Today only",
+          "text": "Option: Today only"
+        },
+        {
+          "id": "YR7PZQ",
+          "parent_id": "QmziVh",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Request Hold Service | Action: Click",
+          "text": "UI: Button: Request Hold Service | Action: Click"
+        },
+        {
+          "id": "YRFzzL",
+          "parent_id": "YR7PZQ",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = Today, {status} = Active",
+          "text": "Result: Hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = Today, {status} = Active"
+        },
+        {
+          "id": "Zk4pVF",
+          "parent_id": "Ao8z8A",
+          "order": 1,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Next 3 days",
+          "text": "Option: Next 3 days"
+        },
+        {
+          "id": "LTz4zU",
+          "parent_id": "Zk4pVF",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Request Hold Service | Action: Click",
+          "text": "UI: Button: Request Hold Service | Action: Click"
+        },
+        {
+          "id": "MftNh5",
+          "parent_id": "LTz4zU",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Extended hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = 3 Days, {status} = Active",
+          "text": "Result: Extended hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = 3 Days, {status} = Active"
+        },
+        {
+          "id": "TqGku1",
+          "parent_id": "Ao8z8A",
+          "order": 2,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "Option",
+          "body": "Custom date range",
+          "text": "Option: Custom date range"
+        },
+        {
+          "id": "BhhCRq",
+          "parent_id": "TqGku1",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Text: Select start and end dates for package holding",
+          "text": "UI: Text: Select start and end dates for package holding"
+        },
+        {
+          "id": "DTpRcp",
+          "parent_id": "BhhCRq",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": "UI",
+          "body": "Button: Confirm Custom Hold | Action: Click",
+          "text": "UI: Button: Confirm Custom Hold | Action: Click"
+        },
+        {
+          "id": "NJ5dtm",
+          "parent_id": "DTpRcp",
+          "order": 0,
+          "color": "blue",
+          "color_raw": "#3498DB",
+          "prefix": null,
+          "body": "Result: Custom hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = Custom, {start_date} = Selected Start, {end_date} = Selected End, {status} = Active",
+          "text": "Result: Custom hold service scheduled | System Update: Create: PackageHold | {tenant} = Current User, {hold_duration} = Custom, {start_date} = Selected Start, {end_date} = Selected End, {status} = Active"
+        }
+      ]
+    }
+  ],
+  "stickies": []
+}
