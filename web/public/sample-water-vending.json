@@ -1,0 +1,143 @@
+{
+  "name": "water-vending-finder",
+  "description": "A water vending machine finder app that helps Nairobi residents locate, check availability of, and pay for clean water at the nearest vending point.",
+  "problemStatement": "Clean drinking water in Nairobi is sold through thousands of small vending machines scattered across neighborhoods, but residents have no reliable way to know which machines are operational, which are out of water, or which are closest. Operators have no way to monitor their fleet remotely, and the city has no visibility into uptime or pricing. The result is wasted trips, hoarding during outages, and inconsistent pricing.",
+  "users": [
+    {
+      "type": "Customer",
+      "goal": "Find the nearest working machine, confirm it has water, and pay with M-Pesa in under 60 seconds."
+    },
+    {
+      "type": "Operator",
+      "goal": "Monitor a fleet of 5-50 machines, get alerts when tanks run low or hardware fails, and reconcile daily revenue."
+    },
+    {
+      "type": "Admin",
+      "goal": "Approve new operators, set pricing rules per zone, and publish uptime reports to the city."
+    }
+  ],
+  "features": [
+    {
+      "name": "Machine Discovery",
+      "description": "Customer search and map view for nearby vending machines with live availability.",
+      "userFlow": [
+        "Customer opens the app and is prompted to share location.",
+        "App shows a map centered on the customer with pins for nearby machines.",
+        "Each pin is color-coded: green (available), amber (low water), red (offline).",
+        "Customer taps a pin to see machine details: address, distance, price per liter, last refill.",
+        "Customer taps Directions to open Google Maps with walking directions."
+      ],
+      "edgeCases": [
+        "Customer denies location permission — fall back to neighborhood picker.",
+        "No machines within 5 km — show empty state with the 3 closest beyond the radius.",
+        "All nearby machines are offline — show a banner explaining the outage and the next-nearest available zone.",
+        "Customer is in an area with no coverage data — show a 'service area' message and a request-coverage form."
+      ]
+    },
+    {
+      "name": "M-Pesa Checkout",
+      "description": "Pay for water at the machine using STK Push from the phone.",
+      "userFlow": [
+        "Customer scans the QR code printed on the machine (or enters the machine code manually).",
+        "Customer enters the number of liters to purchase.",
+        "App shows total cost, machine details, and an M-Pesa Pay button.",
+        "Customer taps Pay; app initiates STK Push to their registered phone number.",
+        "Customer approves the prompt on their phone with their M-Pesa PIN.",
+        "App polls payment status; on success, sends a dispense command to the machine.",
+        "Machine dispenses water; app shows a receipt and a Rate This Machine prompt."
+      ],
+      "edgeCases": [
+        "STK Push times out (customer didn't approve within 60s) — show retry with a fresh prompt.",
+        "Payment succeeds but dispense command fails — auto-refund within 5 minutes and notify the operator.",
+        "Customer's phone number on file doesn't match their M-Pesa account — prompt to update phone in profile.",
+        "Machine goes offline mid-transaction — refund and show the next-nearest machine.",
+        "Duplicate STK Push due to retry — idempotency key on transaction prevents double charge."
+      ]
+    },
+    {
+      "name": "Operator Fleet Dashboard",
+      "description": "Real-time view of all machines an operator owns, with alerts and revenue.",
+      "userFlow": [
+        "Operator logs in and lands on the fleet overview (table + map toggle).",
+        "Each row shows: machine code, location, status, tank level %, today's revenue, last refill.",
+        "Operator clicks a machine to open the detail view with 7-day usage chart and alert history.",
+        "Operator can mark a machine as 'in maintenance' to hide it from customer search.",
+        "Operator can export today's revenue as CSV for daily reconciliation."
+      ],
+      "edgeCases": [
+        "Machine hasn't reported in 15 minutes — flag as 'connection lost' but keep it on the map until 60 min, then mark offline.",
+        "Tank level sensor returns implausible reading (e.g., 110%) — show 'sensor fault' badge and keep last good reading.",
+        "Operator has zero machines — show onboarding card explaining how to register a machine.",
+        "Two operators try to claim the same machine code — first-come wins; second sees 'already claimed, contact support'."
+      ]
+    }
+  ],
+  "pages": [
+    { "name": "Landing",            "route": "/",                    "who": "public",   "shows": "Hero with map preview, 3-step how-it-works, FAQ, download app CTA." },
+    { "name": "Map / Discover",     "route": "/find",                "who": "customer", "shows": "Live map of nearby machines, filters for availability and price." },
+    { "name": "Machine Detail",     "route": "/machine/:id",         "who": "customer", "shows": "Machine address, price, availability, recent reviews, Pay button." },
+    { "name": "Checkout",           "route": "/checkout/:machineId", "who": "customer", "shows": "Liters input, total cost, M-Pesa Pay button, STK status indicator." },
+    { "name": "Receipt",            "route": "/receipt/:txnId",      "who": "customer", "shows": "Payment summary, machine details, rate-this-machine prompt." },
+    { "name": "Customer Profile",   "route": "/me",                  "who": "customer", "shows": "Phone, transaction history, saved favorite machines." },
+    { "name": "Operator Login",     "route": "/operator/login",      "who": "operator", "shows": "Email + password sign-in form for fleet operators." },
+    { "name": "Operator Dashboard", "route": "/operator",            "who": "operator", "shows": "Fleet overview table, map toggle, today's revenue, active alerts." },
+    { "name": "Admin Console",      "route": "/admin",               "who": "admin",    "shows": "Operator approvals queue, zone pricing rules, city-wide uptime report." }
+  ],
+  "dataModel": {
+    "Machine": {
+      "id": "string",
+      "code": "string (printed on the unit, e.g. NRB-0042)",
+      "operatorId": "string",
+      "lat": "number",
+      "lng": "number",
+      "address": "string",
+      "tankLevelPct": "number (0-100)",
+      "pricePerLiter": "number (KES minor units)",
+      "status": "'available' | 'low' | 'offline' | 'maintenance'",
+      "lastSeenAt": "Date",
+      "lastRefilledAt": "Date"
+    },
+    "Transaction": {
+      "id": "string",
+      "customerId": "string",
+      "machineId": "string",
+      "liters": "number",
+      "amount": "number (KES minor units)",
+      "mpesaCheckoutRequestId": "string",
+      "status": "'pending' | 'paid' | 'dispensed' | 'failed' | 'refunded'",
+      "idempotencyKey": "string",
+      "createdAt": "Date",
+      "dispensedAt": "Date | null"
+    },
+    "Operator": {
+      "id": "string",
+      "name": "string",
+      "phone": "string",
+      "email": "string",
+      "approvedAt": "Date | null",
+      "payoutMpesaPhone": "string"
+    }
+  },
+  "design": {
+    "aesthetic": "Clean, trustworthy, utility-grade. Feels like a public service, not a fintech ad. Generous whitespace, large readable type, calm blues and clean whites with a single warm accent for action.",
+    "primaryColor": "#0EA5E9",
+    "accentColor": "#F59E0B",
+    "fontHeading": "Inter",
+    "fontBody": "Inter",
+    "layout": "Mobile-first single column for customer flow; sidebar nav for operator dashboard on desktop; max content width 1280px on the dashboard, full-bleed on the map.",
+    "mobilePriority": "Customer pages must work flawlessly on a 360px screen on 3G. Operator dashboard is desktop-first but readable on tablet."
+  },
+  "outOfScope": [
+    "Native iOS/Android apps — PWA only for MVP.",
+    "Multi-currency or non-Kenyan markets.",
+    "Subscription / prepaid wallet — only pay-per-dispense via M-Pesa.",
+    "Hardware sales or machine manufacturing — partners supply units.",
+    "Loyalty programs and referrals."
+  ],
+  "openQuestions": [
+    "Should we cap how far the map searches (e.g., 5 km) or always show the 10 nearest regardless of distance?",
+    "Do we charge operators a per-transaction fee or a flat monthly SaaS fee?",
+    "What's the SLA we promise on auto-refunds when dispense fails?",
+    "Do we expose the city uptime report publicly or only to government partners?"
+  ]
+}
